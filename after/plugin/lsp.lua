@@ -63,5 +63,11 @@ cmp.setup({
     ['<down>'] = cmp.mapping.select_next_item(cmp_select),
     ['<Tab>'] = nil,
     ['<S-Tab>'] = nil,
-  }
+  },
+  sources = {
+    { name = "nvim_lsp" },
+    { name = "luasnip" },
+    { name = "buffer" },
+    { name = "nvim_lua" },
+  },
 })
