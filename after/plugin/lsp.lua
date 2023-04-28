@@ -11,21 +11,6 @@ lsp.nvim_workspace()
 
 local cmp = require('cmp')
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
-local cmp_mappings = lsp.defaults.cmp_mappings({
-  ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-  ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-  ['<up>'] = cmp.mapping.select_prev_item(cmp_select),
-  ['<down>'] = cmp.mapping.select_next_item(cmp_select),
-  ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-  ["<C-Space>"] = cmp.mapping.complete(),
-})
-
-cmp_mappings['<Tab>'] = nil
-cmp_mappings['<S-Tab>'] = nil
-
-lsp.setup_nvim_cmp({
-  mapping = cmp_mappings
-})
 
 lsp.set_preferences({
     suggest_lsp_servers = false,
@@ -72,5 +57,11 @@ cmp.setup({
     -- Navigate between snippet placeholder
     ['<C-f>'] = cmp_action.luasnip_jump_forward(),
     ['<C-b>'] = cmp_action.luasnip_jump_backward(),
+    ['<S-p>'] = cmp_action.luasnip_jump_forward(),
+    ['<S-k>'] = cmp_action.luasnip_jump_backward(),
+    ['<up>'] = cmp.mapping.select_prev_item(cmp_select),
+    ['<down>'] = cmp.mapping.select_next_item(cmp_select),
+    ['<Tab>'] = nil,
+    ['<S-Tab>'] = nil,
   }
 })
