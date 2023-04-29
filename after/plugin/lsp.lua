@@ -49,7 +49,8 @@ local cmp_action = require('lsp-zero').cmp_action()
 cmp.setup({
   mapping = {
     -- `Enter` key to confirm completion
-    ['<CR>'] = cmp.mapping.confirm({select = false}),
+    -- ['<CR>'] = cmp.mapping.confirm({select = false}),
+    ["<CR>"] = cmp.mapping.confirm({behavior = cmp.ConfirmBehavior.Replace, select = false}),
 
     -- Ctrl+Space to trigger completion menu
     ['<C-Space>'] = cmp.mapping.complete(),
@@ -57,17 +58,48 @@ cmp.setup({
     -- Navigate between snippet placeholder
     ['<C-f>'] = cmp_action.luasnip_jump_forward(),
     ['<C-b>'] = cmp_action.luasnip_jump_backward(),
-    ['<S-p>'] = cmp_action.luasnip_jump_forward(),
-    ['<S-k>'] = cmp_action.luasnip_jump_backward(),
-    ['<up>'] = cmp.mapping.select_prev_item(cmp_select),
-    ['<down>'] = cmp.mapping.select_next_item(cmp_select),
-    ['<Tab>'] = nil,
-    ['<S-Tab>'] = nil,
+    -- ['<S-p>'] = cmp_action.luasnip_jump_forward(),
+    -- ['<S-k>'] = cmp_action.luasnip_jump_backward(),
+
+    -- ['<up>'] = cmp.mapping.select_prev_item(cmp_select),
+    -- ['<down>'] = cmp.mapping.select_next_item(cmp_select),
+    -- ['<Tab>'] = nil,
+    -- ['<S-Tab>'] = nil,
+
+    -- ["<C-h>"] = cmp.mapping.scroll_docs(-4),
+    -- ["<C-f>"] = cmp.mapping.scroll_docs(4),
+
+
+    ["<S-k>"] = cmp.mapping.select_prev_item(cmp_select),
+    ["<S-j>"] = cmp.mapping.select_next_item(cmp_select),
+
+    ["<C-k>"] = cmp.mapping.scroll_docs(-4),
+    ["<C-j>"] = cmp.mapping.scroll_docs(4),
+    -- ["<C-e>"] = cmp.mapping.close(),
+    -- ["<Esc>"] = cmp.mapping.close(),
+    ["<S-l>"] = cmp.mapping.close(),
+    ["<Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif require("luasnip").expand_or_jumpable() then
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
+      else
+        fallback()
+      end
+    end, {
+      "i",
+      "s",
+    }),
   },
   sources = {
     { name = "nvim_lsp" },
     { name = "luasnip" },
     { name = "buffer" },
     { name = "nvim_lua" },
+  },
+
+  preselect = 'item',
+  completion = {
+    completeopt = 'menu,menuone,noinsert'
   },
 })
