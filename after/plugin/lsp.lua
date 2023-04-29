@@ -46,6 +46,19 @@ vim.diagnostic.config({
 -- Override mappings
 local cmp_action = require('lsp-zero').cmp_action()
 
+local function border(hl_name)
+  return {
+    { "╭", hl_name },
+    { "─", hl_name },
+    { "╮", hl_name },
+    { "│", hl_name },
+    { "╯", hl_name },
+    { "─", hl_name },
+    { "╰", hl_name },
+    { "│", hl_name },
+  }
+end
+
 cmp.setup({
   mapping = {
     -- `Enter` key to confirm completion
@@ -92,14 +105,27 @@ cmp.setup({
     }),
   },
   sources = {
-    { name = "nvim_lsp" },
-    { name = "luasnip" },
-    { name = "buffer" },
-    { name = "nvim_lua" },
+    {name = 'nvim_lsp'},
+    {name = 'nvim_lua'},
+    {name = "luasnip"},
+    {name = "buffer"},
   },
 
   preselect = 'item',
   completion = {
     completeopt = 'menu,menuone,noinsert'
+  },
+
+  window = {
+    completion = {
+      border = border("CmpBorder"),
+      -- side_padding = (cmp_style ~= "atom" and cmp_style ~= "atom_colored") and 1 or 0,
+      -- winhighlight = "Normal:CmpPmenu,CursorLine:CmpSel,Search:PmenuSel",
+      scrollbar = true,
+    },
+    documentation = {
+      border = border "CmpDocBorder",
+      winhighlight = "Normal:CmpDoc",
+    },
   },
 })
