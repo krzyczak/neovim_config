@@ -1,15 +1,31 @@
-local packer_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
+-- local packer_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
+--
+-- if not vim.loop.fs_stat(packer_path) then
+--   vim.fn.system {
+--     'git',
+--     'clone',
+--     '--filter=blob:none',
+--     'https://github.com/wbthomason/packer.nvim',
+--     '--branch=master', -- latest stable release
+--     packer_path,
+--   }
+-- end
 
-if not vim.loop.fs_stat(packer_path) then
-  vim.fn.system {
-    'git',
-    'clone',
-    '--filter=blob:none',
-    'https://github.com/wbthomason/packer.nvim',
-    '--branch=master', -- latest stable release
-    packer_path,
-  }
+-- ensure_packer BEGIN
+local ensure_packer = function()
+  local fn = vim.fn
+  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+  if fn.empty(fn.glob(install_path)) > 0 then
+    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    vim.cmd [[packadd packer.nvim]]
+    return true
+  end
+  return false
 end
+
+local packer_bootstrap = ensure_packer()
+
+-- ensure_packer END
 
 -- Only required if you have packer configured as `opt`
 vim.cmd [[packadd packer.nvim]]
@@ -69,4 +85,10 @@ return require('packer').startup(function(use)
   }
 
   use 'echasnovski/mini.animate'
+
+  -- Automatically set up your configuration after cloning packer.nvim
+  -- Put this at the end after all plugins
+  if packer_bootstrap then
+    require('packer').sync()
+  end
 end)
