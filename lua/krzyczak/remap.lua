@@ -45,3 +45,5 @@ end)
 -- vim.keymap.set("n", "<leader>/", function()
 --   require("Comment.api").toggle.linewise.current()
 -- end)
+
+vim.keymap.set("n", "<leader>enc", "mzggg?G`z")
