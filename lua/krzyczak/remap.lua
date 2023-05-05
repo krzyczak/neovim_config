@@ -48,28 +48,28 @@ end)
 
 vim.keymap.set("n", "<leader>enc", "mzggg?G`z")
 
--- Set Terminal Mappings
-vim.keymap.set("n", "<C-t>", function ()
-  if vim.fn.bufexists("terminal") ~= 0 then
-    local bufnr = vim.fn.bufnr("terminal")
-    if vim.fn.bufwinnr(bufnr) == -1 then
-      vim.cmd("botright vertical sbuffer " .. bufnr)
-      vim.cmd("startinsert")
-    end
-  else
-    vim.api.nvim_command("botright vsplit term://$SHELL")
-  end
-end, {})
-
-vim.keymap.set("t", "<C-t>", "<cmd>:hide<CR>", {})
-vim.api.nvim_command("autocmd TermOpen * file terminal") -- starts in insert mode
-vim.api.nvim_command("autocmd TermOpen * startinsert") -- starts in insert mode
-vim.api.nvim_command("autocmd TermOpen * setlocal norelativenumber") -- no numbers
-vim.api.nvim_command("autocmd TermOpen * setlocal nonumber") -- no numbers
-vim.api.nvim_command("autocmd TermEnter * setlocal signcolumn=no") -- no sign column
-
-vim.keymap.set('n', '<C-right>', "<C-w>l")
-vim.keymap.set('n', '<C-left>', "<C-w>h")
-vim.keymap.set('t', '<C-right>', "<C-\\><C-n><C-w>l")
-vim.keymap.set('t', '<C-left>', "<C-\\><C-n><C-w>h")
-vim.keymap.set('t', '<esc>', "<C-\\><C-n>")
+-- Set Terminal Mappings - Commented out, because of tmux does this - TODO: remove all of this
+-- vim.keymap.set("n", "<C-t>", function ()
+--   if vim.fn.bufexists("terminal") ~= 0 then
+--     local bufnr = vim.fn.bufnr("terminal")
+--     if vim.fn.bufwinnr(bufnr) == -1 then
+--       vim.cmd("botright vertical sbuffer " .. bufnr)
+--       vim.cmd("startinsert")
+--     end
+--   else
+--     vim.api.nvim_command("botright vsplit term://$SHELL")
+--   end
+-- end, {})
+--
+-- vim.keymap.set("t", "<C-t>", "<cmd>:hide<CR>", {})
+-- vim.api.nvim_command("autocmd TermOpen * file terminal") -- starts in insert mode
+-- vim.api.nvim_command("autocmd TermOpen * startinsert") -- starts in insert mode
+-- vim.api.nvim_command("autocmd TermOpen * setlocal norelativenumber") -- no numbers
+-- vim.api.nvim_command("autocmd TermOpen * setlocal nonumber") -- no numbers
+-- vim.api.nvim_command("autocmd TermEnter * setlocal signcolumn=no") -- no sign column
+--
+-- vim.keymap.set('n', '<C-right>', "<C-w>l")
+-- vim.keymap.set('n', '<C-left>', "<C-w>h")
+-- vim.keymap.set('t', '<C-right>', "<C-\\><C-n><C-w>l")
+-- vim.keymap.set('t', '<C-left>', "<C-\\><C-n><C-w>h")
+-- vim.keymap.set('t', '<esc>', "<C-\\><C-n>")
