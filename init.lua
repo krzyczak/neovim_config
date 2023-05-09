@@ -1,1 +1,1 @@
-require("krzyczak")
+require("core")
