@@ -42,6 +42,11 @@ vim.keymap.set("n", "<leader><leader>", function()
   vim.cmd("so")
 end)
 
+-- Make it into a plugin which will react to ciw, ct[ etc.
+-- Also should wrap in any type of wrapper, i.e. (), [], {}, "", etc...
+-- Also it should possibly toggle?
+vim.keymap.set("n", "<leader>q", "ciw\"\"<ESC>P")
+
 -- vim.keymap.set("v", "<leader>/", "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>")
 -- vim.keymap.set("n", "<leader>/", function()
 --   require("Comment.api").toggle.linewise.current()
