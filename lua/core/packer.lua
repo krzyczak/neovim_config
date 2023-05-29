@@ -94,6 +94,16 @@ return require('packer').startup(function(use)
     end
   }
 
+  use {
+    'jinh0/eyeliner.nvim',
+    config = function()
+      require'eyeliner'.setup {
+        highlight_on_key = true, -- show highlights only after keypress
+        dim = false              -- dim all other characters if set to true (recommended!)
+      }
+    end
+  }
+
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if packer_bootstrap then
