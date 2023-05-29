@@ -34,6 +34,14 @@ return require('packer').startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
 
+  use({
+    'rust-lang/rust.vim',
+    -- ft = "rust",
+    -- init = function()
+    --   vim.g.rustfmt_autosave = 1
+    -- end
+  })
+
   use {
     'nvim-lualine/lualine.nvim',
     requires = { 'nvim-tree/nvim-web-devicons', opt = true }
