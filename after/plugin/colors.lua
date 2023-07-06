@@ -2,6 +2,17 @@ require('rose-pine').setup({
   disable_background = true,
 })
 
+require("catppuccin").setup({
+    -- flavour = "mocha", -- latte, frappe, macchiato, mocha
+    flavour = "macchiato",
+    -- background = { -- :h background
+    --     light = "latte",
+    --     dark = "mocha",
+    -- },
+    -- transparent_background = false,
+    transparent_background = true,
+})
+
 function ColorMyPencils(color)
   color = color or "rose-pine"
   vim.cmd.colorscheme(color)
@@ -12,6 +23,6 @@ end
 
 -- ColorMyPencils("onelight")
 -- ColorMyPencils()
-ColorMyPencils("onedark")
+ColorMyPencils("catppuccin")
 -- ColorMyPencils("habamax")
 

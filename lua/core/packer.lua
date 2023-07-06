@@ -62,6 +62,8 @@ return require('packer').startup(function(use)
     end
   })
 
+  use { "catppuccin/nvim", as = "catppuccin" }
+
 
   use "olimorris/onedarkpro.nvim"
 
