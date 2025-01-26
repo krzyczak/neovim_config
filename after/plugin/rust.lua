@@ -1,1 +1,1 @@
-  vim.cmd [[ autocmd BufWritePre *.rs :RustFmt ]]
+  -- vim.cmd [[ autocmd BufWritePre *.rs :RustFmt ]]

@@ -4,6 +4,10 @@ vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
+-- TODO: This would be nice, but it interferes with LSP. Which keybindings instead?
+-- vim.keymap.set("n", "K", ":m '<-2<CR>") -- conflicts with LSP
+-- vim.keymap.set("v", "J", ":m '>+1<CR>") -- conflicts with line join below
+
 vim.keymap.set("n", "J", "mzJ`z")
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
@@ -19,9 +23,16 @@ vim.keymap.set("n", "<leader>Y", [["+Y]])
 
 vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
 
+
+vim.keymap.set("n", "<C-T>", ":tabnew<CR>")
+vim.keymap.set("n", "<C-[>", ":tabprev<CR>")
+vim.keymap.set("n", "<C-]>", ":tabnext<CR>")
+vim.keymap.set("n", "<C-Q>", ":tabclose<CR>")
+
 -- This is going to get me cancelled
 -- vim.keymap.set("i", "<C-c>", "<Esc>")
 
+vim.keymap.set("n", "<ESC>", "<nop>")
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
@@ -79,3 +90,38 @@ vim.keymap.set("n", "<leader>enc", "mzggg?G`z")
 -- vim.keymap.set('t', '<C-right>', "<C-\\><C-n><C-w>l")
 -- vim.keymap.set('t', '<C-left>', "<C-\\><C-n><C-w>h")
 -- vim.keymap.set('t', '<esc>', "<C-\\><C-n>")
+
+function swap_brackets(key)
+  local bracket_pairs = {
+    ['('] = ')', [')'] = '(', ['{'] = '}', ['}'] = '{', ['['] = ']', [']'] = '[', ['<'] = '>', ['>'] = '<'
+  }
+
+  local lpos = vim.fn.getpos('.')
+  vim.cmd('normal! %')
+
+  -- local rpos = vim.fn.getpos('.')
+  vim.cmd('normal! r' .. bracket_pairs[key])
+
+  vim.fn.setpos('.', lpos)
+  vim.cmd('normal! r' .. key)
+end
+
+-- Keybindings
+vim.keymap.set('n', '<leader>sw(', '<cmd>lua swap_brackets("(")<cr>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>sw{', '<cmd>lua swap_brackets("{")<cr>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>sw[', '<cmd>lua swap_brackets("[")<cr>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>sw<', '<cmd>lua swap_brackets("<")<cr>', { noremap = true, silent = true })
+
+-- vim.keymap.set('i', '(', "()<left>");
+-- vim.keymap.set('i', '[', "[]<left>");
+-- vim.keymap.set('i', '{', "{}<left>");
+-- vim.keymap.set('i', '<', "<><left>");
+-- vim.keymap.set('i', '"', '""<left>');
+-- vim.keymap.set('i', "'", "''<left>");
+
+vim.keymap.set('v', "(", "c()<left><esc>p");
+vim.keymap.set('v', "[", "c[]<left><esc>p");
+vim.keymap.set('v', "{", "c{}<left><esc>p");
+vim.keymap.set('v', "<", "c<><left><esc>p");
+vim.keymap.set('v', "'", "c''<left><esc>p");
+vim.keymap.set('v', '"', 'c""<left><esc>p');

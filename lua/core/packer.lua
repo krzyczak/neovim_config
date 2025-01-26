@@ -58,13 +58,25 @@ return require('packer').startup(function(use)
   use({
     'rose-pine/neovim',
     as = 'rose-pine',
-    config = function()
-      vim.cmd('colorscheme rose-pine')
-    end
+    -- config = function()
+    --   vim.cmd('colorscheme rose-pine')
+    -- end
   })
 
   use { "catppuccin/nvim", as = "catppuccin" }
 
+  -- -- Or with configuration
+  -- use({
+  --   'projekt0n/github-nvim-theme', tag = 'v0.0.7',
+  --   -- or                            branch = '0.0.x'
+  --   config = function()
+  --     require('github-theme').setup({
+  --       -- ...
+  --     })
+  --
+  --     vim.cmd('colorscheme github_dark')
+  --   end
+  -- })
 
   use "olimorris/onedarkpro.nvim"
 
@@ -101,7 +113,9 @@ return require('packer').startup(function(use)
 
   use {
     "windwp/nvim-autopairs",
-    config = function() require("nvim-autopairs").setup {} end
+    config = function()
+      require("nvim-autopairs").setup({})
+    end
   }
 
   use 'echasnovski/mini.animate'
